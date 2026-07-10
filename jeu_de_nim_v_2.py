@@ -9,3 +9,39 @@ allumette a perdu.
 Le programme doit arbitrer une partie se déroulant entre deux joueurs humains, dont leur nom est
 demandé au démarrage, ainsi que le joueur qui commence.
 """
+def human_vs_human():
+	print("\nHUMAN VS HUMAN")
+	
+def human_vs_computer():
+	print("\nHUMAN VS COMPUTER")
+	
+
+def main():
+	"""
+	Main function. Choisir le mode de jeu
+	"""
+	print("        GAME OF NIM")
+	
+	while True:
+		print("\n1 - Human vs Human")
+		print("2 - Human vs Computer")
+		print("3 - Quit")
+		
+		choice = input("Choice: ")
+		
+		if choice == "1":
+			human_vs_human()
+		
+		elif choice == "2":
+			human_vs_computer()
+		
+		elif choice == "3":
+			print("Goodbye!")
+			break
+		
+		else:
+			print("Invalid choice.")
+
+
+if __name__ == "__main__":
+	main()
