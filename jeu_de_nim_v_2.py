@@ -9,11 +9,29 @@ allumette a perdu.
 Le programme doit arbitrer une partie se déroulant entre deux joueurs humains, dont leur nom est
 demandé au démarrage, ainsi que le joueur qui commence.
 """
+
 def human_vs_human():
-	print("\nHUMAN VS HUMAN")
+# print("\nHUMAN VS HUMAN")
+	"""
+	Play a Human vs Human game.
+	"""
+	player1 = input("Name of player 1: ")
+	player2 = input("Name of player 2: ")
+	
+
+	first = input(f"Who starts ({player1}/{player2})? ")
+	
 	
 def human_vs_computer():
-	print("\nHUMAN VS COMPUTER")
+	#print("\nHUMAN VS COMPUTER")
+	"""
+	Play Human vs Computer.
+	"""
+	human = input("Your name: ")
+	
+	
+	first = input("Who starts ("+human+"/computer)? ").lower()
+		
 	
 
 def main():
