@@ -37,7 +37,44 @@ def get_player_move(player_name, matches):
 		
 		except ValueError:
 			print("Please enter an integer.")
+
+
+def computer_move(matches, human_move=None, computer_started=False):
+	"""
+    Calcule le coup de l'ordinateur en utilisant la stratégie optimale.
+
+    :parameter
+    matches : int (Nombre d'allumettes restantes)
+    human_move : int, optionnel (Dernier coup joué par l'humain)
+    computer_started : bool (True si l'ordinateur a commencé la partie)
+
+  	:return int (Nombre d'allumettes retirées)
+    """
+	
+	# Human started
+	if not computer_started:
+		move = 5 - human_move
+	
+	# Computer started
+	else:
+		# First move
+		if matches == TOTAL_MATCHES:
+			move = 1
+		else:
+			target = (matches - 1) % 5
 			
+			if target == 0:
+				move = 1
+			else:
+				move = target
+	
+	move = max(1, min(move, 4))
+	move = min(move, matches)
+	
+	print(f"Computer removes {move} match(es).")
+	
+	return move
+	
 def display_matches(matches):
 	"""
 	Affiche les allumettes restantes.
@@ -97,9 +134,59 @@ def human_vs_computer():
 	"""
 	human = input("Your name: ")
 	
-	
-	first = input("Who starts ("+human+"/computer)? ").lower()
+	while True:
+		first = input(f"Who starts ({human}/computer)? ").lower()
 		
+		if first in (f"{human}", "computer"):
+			break
+		
+		print("Please enter 'human' or 'computer'.")
+	
+	matches = TOTAL_MATCHES
+	human_starts = first == "human"
+	
+	if human_starts:
+		turn = "human"
+	else:
+		turn = "computer"
+	
+	last_human_move = None
+	
+	while True:
+		display_matches(matches)
+		
+		if turn == "human":
+			
+			move = get_player_move(human, matches)
+			last_human_move = move
+			
+			matches -= move
+			
+			if matches == 0:
+				print(f"\n{human} removed the last match.")
+				print("You lose!")
+				print("Computer wins!")
+				break
+			
+			turn = "computer"
+		
+		else:
+			
+			move = computer_move(
+				matches,
+				last_human_move,
+				computer_started=not human_starts
+			)
+			
+			matches -= move
+			
+			if matches == 0:
+				print("\nComputer removed the last match.")
+				print("Computer loses!")
+				print(f"{human} wins!")
+				break
+			
+			turn = "human"
 	
 
 def main():
